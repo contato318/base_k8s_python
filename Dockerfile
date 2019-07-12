@@ -1,7 +1,9 @@
 FROM docker:dind
 
 
-RUN echo "**** install Python ****" && \
+RUN echo "**** install gcc, make ****" && \
+    apk add --no-cache gcc make python3-dev musl-dev && \
+    echo "**** install Python ****" && \
     apk add --no-cache python3 && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
     \
@@ -10,8 +12,8 @@ RUN echo "**** install Python ****" && \
     rm -r /usr/lib/python*/ensurepip || echo OK && \
     pip3 install --no-cache --upgrade pip setuptools wheel && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
-    echo "**** install make, curl and git ****" && \
-    apk add --no-cache make git curl && \
+    echo "**** install curl and git ****" && \
+    apk add --no-cache git curl && \
     pip install --no-cache --upgrade docker-compose
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
