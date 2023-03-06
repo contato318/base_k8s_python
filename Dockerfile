@@ -4,7 +4,7 @@ FROM docker:dind
 RUN echo "**** install gcc, make ****" && \
     apk add --no-cache gcc make python3-dev musl-dev && \
     echo "**** install Python ****" && \
-    apk add --no-cache python3 && \
+    apk add --no-cache python3 helm yq git && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
     \
     echo "**** install pip ****" && \
