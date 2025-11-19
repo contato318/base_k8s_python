@@ -14,7 +14,13 @@ RUN echo "**** install gcc, make ****" && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
     echo "**** install curl and git ****" && \
     apk add --no-cache git curl && \
-    pip install --no-cache --upgrade docker-compose
+    pip install --no-cache --upgrade docker-compose  && \
+    \
+    echo "**** install gcloud cli ****" && \
+    wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-469.0.0-linux-x86_64.tar.gz && \
+    tar -xzf google-cloud-cli-*.tar.gz -C /tmp && \
+    /tmp/google-cloud-sdk/install.sh --quiet && \
+    rm -rf /tmp/google-cloud-sdk google-cloud-cli-*.tar.gz
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
