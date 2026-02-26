@@ -1,4 +1,4 @@
-FROM docker:dind
+FROM docker:29.0.2-dind
 
 
 RUN echo "**** install gcc, make ****" && \
