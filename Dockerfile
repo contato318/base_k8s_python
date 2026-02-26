@@ -3,12 +3,11 @@ FROM docker:29.0.2-dind
 
 RUN echo "**** install gcc, make ****" && \
     apk add --no-cache gcc make python3-dev musl-dev && \
-    echo "**** install Python ****" && \
-    apk add --no-cache python3 py3-pip helm yq git wget curl && \
+    echo "**** install Python e ferramentas ****" && \
+    apk add --no-cache python3 py3-pip helm yq git wget curl docker-compose && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
     if [ ! -e /usr/bin/pip ]; then ln -sf pip3 /usr/bin/pip ; fi && \
-    pip install --no-cache --upgrade --break-system-packages pip setuptools wheel && \
-    pip install --no-cache --break-system-packages docker-compose && \
+    pip install --no-cache --upgrade --break-system-packages setuptools wheel && \
     echo "**** install gcloud cli ****" && \
     wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-469.0.0-linux-x86_64.tar.gz && \
     tar -xzf google-cloud-cli-*.tar.gz -C /tmp && \
